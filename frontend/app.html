@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MedCare · Medical Appointment Scheduling System</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="stylesheet" href="/fonts/fonts.css">
+    <link rel="stylesheet" href="/js/vendor.css?v=83da092dc0">
+    <link rel="stylesheet" href="/css/styles.css?v=277bf2902f">
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- first-load splash while the session is restored -->
+<div class="splash" id="splash">
+    <div class="splash-inner">
+        <img src="/img/logo-mark.png" alt="MedCare">
+        <div class="splash-text">MedCare</div>
+        <div class="spinner"></div>
+        <div class="splash-sub">Preparing your workspace…</div>
+    </div>
+</div>
+
+<div class="app">
+
+    <!-- ------------------------------------------------------ sidebar ---- -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <img class="brand-logo" src="/img/logo-mark.png" alt="MedCare logo">
+            <div class="brand-text">
+                <strong>Med<em>Care</em></strong>
+                <span>Appointment Scheduling</span>
+            </div>
+        </div>
+
+        <div class="side-user">
+            <div class="avatar" id="sideAvatar">--</div>
+            <div>
+                <div class="name" id="sideName">&nbsp;</div>
+                <div class="role" id="sideRole">&nbsp;</div>
+            </div>
+        </div>
+
+        <nav class="nav" id="nav"></nav>
+
+        <div class="side-foot">
+            <strong>MedCare Clinic</strong><br>
+            112, Galle Road · Ratnapura<br>
+            <i data-lucide="phone" class="ico-16"></i> 045 222 3344
+            <div class="mt-8"><span class="small muted" id="sideFootNote">Open Mon–Sat, 8.00am – 6.00pm</span></div>
+        </div>
+    </aside>
+
+    <!-- --------------------------------------------------------- main ---- -->
+    <main class="main">
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle" title="Open the menu" aria-label="Open the menu">
+                <i data-lucide="menu" class="ico-20"></i>
+            </button>
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="crumb" id="pageCrumb">Overview</div>
+            </div>
+            <div class="top-actions">
+                <button class="icon-btn" id="refreshBtn" title="Reload this page" aria-label="Reload this page">
+                    <span class="glyph"><i data-lucide="refresh-cw" class="ico-18"></i></span>
+                </button>
+                <button class="icon-btn" id="bellBtn" title="Notifications" aria-label="Notifications">
+                    <span class="glyph"><i data-lucide="bell" class="ico-18"></i></span>
+                    <span class="badge" id="bellBadge" style="display:none">0</span>
+                </button>
+                <a class="btn btn-sm" href="/" id="siteLink" title="Open the clinic website">
+                    <span class="glyph"><i data-lucide="globe" class="ico-16"></i></span>
+                    <span class="btn-label">Clinic website</span>
+                </a>
+                <button class="btn btn-sm" id="accountBtn" title="My account">
+                    <i data-lucide="user-round" class="ico-16"></i>
+                    <span class="btn-label">My account</span>
+                </button>
+                <button class="btn btn-sm btn-danger" id="logoutBtn" title="Sign out">
+                    <i data-lucide="log-out" class="ico-16"></i>
+                    <span class="btn-label">Sign out</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="content" id="view"></div>
+    </main>
+</div>
+
+<div id="modalRoot"></div>
+<div class="toast-stack" id="toastStack"></div>
+
+<button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up" class="ico-20"></i></button>
+
+<script src="/js/vendor.js?v=2c89a70965"></script>
+<script src="/js/app.js?v=80f09a81c7"></script>
+</body>
+</html>

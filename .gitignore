@@ -1,0 +1,17 @@
+# Build, dependencies and local runtime records
+**/target/
+**/node_modules/
+**/data/
+**/documents/
+.idea/
+.vscode/
+*.iml
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+# Rebuild the frontend bundle after integrating all components
+frontend/js/vendor.js
+frontend/js/vendor.css

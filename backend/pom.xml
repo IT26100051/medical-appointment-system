@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.4</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.medcare</groupId>
+    <artifactId>medical-appointment-system</artifactId>
+    <version>1.0.0</version>
+    <name>Medical Appointment Scheduling System</name>
+    <description>Integrated medical appointment scheduling system - six components with full CRUD,
+        role based access for four user types, and readable text-file data reports.</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.release>17</maven.compiler.release>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!--
+          The website lives in the sibling "frontend" folder so that the front-end
+          files and the Java back-end files are kept completely apart.  At build
+          time the folder is copied into the jar as "static", which is where
+          Spring Boot serves web pages from.
+        -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!-- the front end is packaged as the application's static content.
+                 node_modules and the build scripts are tooling only, so they are
+                 left out of the jar (the built js/vendor.js IS included). -->
+            <resource>
+                <directory>${project.basedir}/../frontend</directory>
+                <targetPath>static</targetPath>
+                <excludes>
+                    <exclude>node_modules/**</exclude>
+                    <exclude>build.mjs</exclude>
+                    <exclude>js/vendor.entry.js</exclude>
+                    <exclude>package.json</exclude>
+                    <exclude>package-lock.json</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

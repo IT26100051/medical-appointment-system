@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedCare Clinic · Ratnapura — Book an appointment with our doctors</title>
+<meta name="description" content="MedCare Clinic, Ratnapura. Meet our specialists, see their consulting hours and book your appointment online in under a minute.">
+<link rel="icon" type="image/png" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/css/styles.css?v=277bf2902f">
+<link rel="stylesheet" href="/js/vendor.css?v=83da092dc0">
+</head>
+<body class="site">
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ==================================================== announcement ===== -->
+<div class="announce" id="announce">
+    <div class="site-wrap">
+        <i data-lucide="megaphone" class="ico-16"></i>
+        <span>Free blood pressure &amp; sugar screening every Saturday, 9.00am – 12.00pm.</span>
+        <a href="#doctors">Reserve a place →</a>
+        <button class="close" id="announceClose" aria-label="Dismiss"><i data-lucide="x" class="ico-16"></i></button>
+    </div>
+</div>
+
+<!-- ========================================================= header ====== -->
+<header class="site-header" id="siteHeader">
+    <div class="site-wrap">
+        <a class="site-logo" href="/">
+            <img src="/img/logo-mark.png" alt="MedCare logo">
+            <span>
+                <strong>Med<em>Care</em></strong>
+                <span>Medical Appointment Scheduling System</span>
+            </span>
+        </a>
+
+        <nav class="site-nav">
+            <a href="#doctors">Find a doctor</a>
+            <a href="#specialties">Specialities</a>
+            <a href="#facilities">Facilities</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="site-actions">
+            <a class="site-phone" href="tel:+94452223344">
+                <i data-lucide="phone" class="ico-16"></i> 045 222 3344
+            </a>
+            <a class="btn btn-primary" href="/login" id="portalBtn">
+                <i data-lucide="user-round" class="ico-16" aria-hidden="true"></i> <span class="portal-label">Patient sign in</span>
+            </a>
+            <button class="btn menu-toggle" id="navToggle" aria-label="Open the menu" style="display:none">
+                <i data-lucide="menu" class="ico-20"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- =========================================================== hero ====== -->
+<section class="hero">
+    <div class="hero-photo" aria-hidden="true" style="background-image:url('/img/photos/hero.jpg'); opacity:.22"></div>
+    <div class="site-wrap" style="position:relative; padding:56px 22px 62px">
+        <div class="hero-grid">
+            <div>
+                <span class="hero-eyebrow" id="heroEyebrow">
+                    <i data-lucide="activity" class="ico-16"></i> <span id="openState">Open now — walk-ins welcome</span>
+                </span>
+                <h1 data-hero="1">Expert care in Ratnapura, <em>booked in a minute</em>.</h1>
+                <p class="lead" data-hero="2">
+                    Four specialist clinics, one appointment book. Choose your doctor, see their real
+                    opening times and confirm your visit online — then keep every appointment, message
+                    and review in one place.
+                </p>
+
+                <form class="search-panel" id="searchForm" data-hero="3">
+                    <div class="field">
+                        <label for="searchText">What can we help you with?</label>
+                        <input id="searchText" type="search" autocomplete="off" placeholder="Doctor's name, speciality or symptom — try “skin”">
+                    </div>
+                    <div class="field" style="flex:0 1 180px">
+                        <label for="searchSpec">Speciality</label>
+                        <select id="searchSpec"><option value="">All specialities</option></select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">
+                        <i data-lucide="search" class="ico-16"></i> Search
+                    </button>
+                </form>
+
+                <div class="hero-cta" data-hero="4">
+                    <a class="btn btn-primary" href="/login">
+                        <i data-lucide="calendar-plus" class="ico-16"></i> Book an appointment
+                    </a>
+                    <a class="btn btn-ghost" href="#doctors">
+                        <i data-lucide="stethoscope" class="ico-16"></i> Meet the doctors
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-collage" data-hero="5">
+                <div class="shot main" style="background-image:url('/img/photos/care.jpg')"></div>
+                <div class="shot small" style="background-image:url('/img/photos/consultation.jpg')"></div>
+
+                <div class="float-card glass">
+                    <div class="fc-ico"><i data-lucide="calendar-check" class="ico-20"></i></div>
+                    <div>
+                        <div class="small muted" style="font-size:11.5px; letter-spacing:.1em; text-transform:uppercase">Next free appointment</div>
+                        <div id="nextFree" style="font-family:var(--font-display); font-weight:600">Loading…</div>
+                    </div>
+                </div>
+
+                <div class="float-rating glass">
+                    <span class="stars" id="heroStars"></span>
+                    <div>
+                        <div style="font-family:var(--font-display); font-weight:700" id="heroRating">5.0</div>
+                        <div class="small muted" id="heroReviews">patient reviews</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================================================== quick tiles ====== -->
+<div class="site-wrap">
+    <div class="quick-tiles">
+        <a class="quick-tile reveal" href="#doctors">
+            <div class="qt-icon"><i data-lucide="stethoscope" class="ico-20"></i></div>
+            <div><strong>Find a doctor</strong><span>Our team, their specialities and when they are free next.</span></div>
+        </a>
+        <a class="quick-tile reveal" href="/login">
+            <div class="qt-icon"><i data-lucide="calendar-plus" class="ico-20"></i></div>
+            <div><strong>Book an appointment</strong><span>Pick any open time and confirm in a few seconds.</span></div>
+        </a>
+        <a class="quick-tile reveal" href="/login">
+            <div class="qt-icon"><i data-lucide="folder-heart" class="ico-20"></i></div>
+            <div><strong>My visits</strong><span>Upcoming appointments, past visits, feedback and messages.</span></div>
+        </a>
+        <a class="quick-tile reveal" href="#contact">
+            <div class="qt-icon"><i data-lucide="clock" class="ico-20"></i></div>
+            <div><strong>Clinic hours</strong><span>Mon–Sat 8.00am – 6.00pm · 112, Galle Road, Ratnapura.</span></div>
+        </a>
+    </div>
+</div>
+
+<!-- ====================================================== trust strip ==== -->
+<section class="section" style="padding-bottom:0">
+    <div class="site-wrap">
+        <div class="trust" id="trustStrip">
+            <div class="t-item reveal">
+                <div class="t-num" data-count="4">0</div>
+                <div class="t-label">Specialist doctors<br>on the team</div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-num" data-count="0" data-suffix="+">0</div>
+                <div class="t-label">Consultations<br>completed</div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-num" data-count="0" data-suffix="+">0</div>
+                <div class="t-label">Open times<br>to book online</div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-num" data-count="4.7" data-decimals="1">0</div>
+                <div class="t-label">Average rating<br>from our patients</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================================================== specialities ==== -->
+<section class="section" id="specialties">
+    <div class="site-wrap">
+        <div class="section-head reveal">
+            <div class="eyebrow">Our clinics</div>
+            <h2>Specialist care for every member of the family</h2>
+            <p>Each clinic keeps its own consulting hours, so the next free time is always visible.</p>
+        </div>
+        <div class="specialty-grid" id="specialtyGrid"></div>
+    </div>
+</section>
+
+<!-- ========================================================= doctors ===== -->
+<section class="section tinted" id="doctors">
+    <div class="site-wrap">
+        <div class="section-head reveal">
+            <div class="eyebrow">Our medical team</div>
+            <h2>Meet the doctors</h2>
+            <p>Live availability comes straight from the clinic's appointment book — nothing is estimated.</p>
+        </div>
+
+        <div class="chips reveal" id="specChips" style="margin-bottom:26px"></div>
+        <div class="doctor-grid" id="doctorGrid"></div>
+        <div class="empty hidden" id="noDoctors">
+            <span class="big"><i data-lucide="search-x" class="ico-26"></i></span>No doctor matches that search.
+            Please try another name or speciality.
+        </div>
+    </div>
+</section>
+
+<!-- ==================================================== how it works ===== -->
+<section class="section" id="how">
+    <div class="site-wrap">
+        <div class="section-head reveal">
+            <div class="eyebrow">Booking is easy</div>
+            <h2>Three steps to your appointment</h2>
+            <p>No phone queues and no paperwork at the counter — every visit is recorded for next time.</p>
+        </div>
+        <div class="steps">
+            <div class="step reveal">
+                <i data-lucide="user-search" class="ico-22" style="color:var(--teal)"></i>
+                <h3>Choose your doctor</h3>
+                <p>Filter by speciality, read their qualifications and see the consultation fee before you book.</p>
+            </div>
+            <div class="step reveal">
+                <i data-lucide="calendar-clock" class="ico-22" style="color:var(--teal)"></i>
+                <h3>Pick a free time</h3>
+                <p>Only genuinely open times are shown, so a slot can never be given to two patients.</p>
+            </div>
+            <div class="step reveal">
+                <i data-lucide="clipboard-check" class="ico-22" style="color:var(--teal)"></i>
+                <h3>Confirm &amp; arrive</h3>
+                <p>Your appointment appears in <em>My visits</em> with a reference number, and the clinic can
+                    send you reminders and messages.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====================================================== facilities ===== -->
+<section class="section tinted" id="facilities">
+    <div class="site-wrap">
+        <div class="grid cols-2" style="gap:38px; align-items:center">
+            <div class="mosaic reveal-l">
+                <div class="m-photo tall" style="background-image:url('/img/photos/hospital.jpg')"></div>
+                <div class="m-photo" style="background-image:url('/img/photos/lobby.jpg')"></div>
+                <div class="m-photo" style="background-image:url('/img/photos/lab.jpg')"></div>
+                <div class="m-photo" style="background-image:url('/img/photos/pharmacy.jpg')"></div>
+                <div class="m-photo" style="background-image:url('/img/photos/team.jpg')"></div>
+            </div>
+            <div class="reveal-r">
+                <div class="eyebrow" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700">
+                    Facilities
+                </div>
+                <h2 style="font-family:var(--font-display); font-size:clamp(22px,2.6vw,30px); margin:8px 0 14px">
+                    Everything under one roof
+                </h2>
+                <div class="feature-list">
+                    <div class="f-item">
+                        <div class="f-ico"><i data-lucide="heart-pulse" class="ico-18"></i></div>
+                        <div><strong>Four specialist clinics</strong>
+                            <span>Cardiology, dermatology, paediatrics and general medicine, all in one building.</span></div>
+                    </div>
+                    <div class="f-item">
+                        <div class="f-ico"><i data-lucide="flask-conical" class="ico-18"></i></div>
+                        <div><strong>On-site diagnostics</strong>
+                            <span>Bloods, ECG and routine testing with results handed to your doctor the same day.</span></div>
+                    </div>
+                    <div class="f-item">
+                        <div class="f-ico"><i data-lucide="pill" class="ico-18"></i></div>
+                        <div><strong>Clinic pharmacy</strong>
+                            <span>Prescriptions dispensed before you leave, with dosage advice from the pharmacist.</span></div>
+                    </div>
+                    <div class="f-item">
+                        <div class="f-ico"><i data-lucide="calendar-check" class="ico-18"></i></div>
+                        <div><strong>Appointments that keep themselves</strong>
+                            <span>Reminders, rescheduling and cancellation online — no need to call the counter.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================================= visit us ===== -->
+<section class="section" id="visit">
+    <div class="site-wrap">
+        <div class="section-head reveal">
+            <div class="eyebrow">Finding us</div>
+            <h2>Visit the clinic</h2>
+            <p>Three minutes from Ratnapura town centre, with parking at the door and the bus stand across the road.</p>
+        </div>
+
+        <div class="visit-grid">
+            <div class="reveal-l">
+                <div class="photo-frame">
+                    <div class="pf-main" style="background-image:url('/img/photos/exterior.jpg')"></div>
+                    <div class="pf-side" style="background-image:url('/img/photos/hospital.jpg')"></div>
+                    <span class="pf-badge glass">Open Mon–Sat · 8.00am – 6.00pm</span>
+                </div>
+            </div>
+
+            <div class="reveal-r">
+                <div class="directions">
+                    <div class="d-step">
+                        <span class="d-num">1</span>
+                        <div><strong>By bus</strong>
+                            <span>Any Ratnapura town service stops at the <em>Galle Road</em> halt, directly
+                                opposite the clinic. It is a 20-metre walk to the entrance.</span></div>
+                    </div>
+                    <div class="d-step">
+                        <span class="d-num">2</span>
+                        <div><strong>By car or three-wheeler</strong>
+                            <span>Turn off the main street at the clock tower and continue 400 m along Galle Road;
+                                the clinic is the white building with the green cross on your left.</span></div>
+                    </div>
+                    <div class="d-step">
+                        <span class="d-num">3</span>
+                        <div><strong>Parking &amp; access</strong>
+                            <span>Six parking bays in front of the building and a covered drop-off at the door.
+                                The entrance and the washrooms are step-free.</span></div>
+                    </div>
+                </div>
+
+                <div class="map-frame reveal-s">
+                    <img src="/img/photos/map-illustration.png" alt="Illustrated map of the area around the clinic">
+                    <div class="map-note glass">
+                        <i data-lucide="map-pin" class="ico-18"></i>
+                        <div><strong>112, Galle Road</strong><span>Ratnapura 70000 · opposite the bus halt</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================== reviews ====== -->
+<section class="section" id="reviews">
+    <div class="site-wrap">
+        <div class="section-head reveal">
+            <div class="eyebrow">Patient stories</div>
+            <h2>What our patients say</h2>
+            <p>Real reviews, written by patients after a completed consultation.</p>
+        </div>
+        <div class="swiper" id="reviewSwiper">
+            <div class="swiper-wrapper" id="reviewTrack"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ FAQ ===== -->
+<section class="section tinted" id="faq">
+    <div class="site-wrap">
+        <div class="section-head reveal">
+            <div class="eyebrow">Good to know</div>
+            <h2>Frequently asked questions</h2>
+        </div>
+        <div class="faq" id="faqList">
+            <div class="faq-item">
+                <button class="faq-q" type="button">
+                    <i data-lucide="calendar-plus" class="ico-18"></i> How do I book an appointment?
+                    <span class="faq-sign"><i data-lucide="plus" class="ico-16"></i></span>
+                </button>
+                <div class="faq-a"><div class="inner">
+                    Sign in with your patient account, choose the doctor and an open time, and confirm.
+                    The appointment appears in <em>My visits</em> straight away with a reference number.
+                    If you do not have an account yet, call the clinic on 045 222 3344 or ask at the
+                    reception desk and we will open your record.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">
+                    <i data-lucide="calendar-x" class="ico-18"></i> Can I change or cancel a visit?
+                    <span class="faq-sign"><i data-lucide="plus" class="ico-16"></i></span>
+                </button>
+                <div class="faq-a"><div class="inner">
+                    Yes. Up to the moment your appointment starts you can cancel it online with a reason;
+                    the clinic keeps the record as history and the time is released for other patients.
+                    Rescheduling works the same way — pick a new open slot and the old one is freed.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">
+                    <i data-lucide="badge-check" class="ico-18"></i> What should I bring to my visit?
+                    <span class="faq-sign"><i data-lucide="plus" class="ico-16"></i></span>
+                </button>
+                <div class="faq-a"><div class="inner">
+                    Your NIC or passport, any previous reports or prescriptions, and your insurance card
+                    if you are claiming. Your medical notes and emergency contact stay on your patient
+                    record, so you only have to give them once.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">
+                    <i data-lucide="clock" class="ico-18"></i> How early should I arrive?
+                    <span class="faq-sign"><i data-lucide="plus" class="ico-16"></i></span>
+                </button>
+                <div class="faq-a"><div class="inner">
+                    Please arrive about ten minutes before your appointment so the counter can check you
+                    in. The clinic runs on booked slots, so patients are seen in appointment order.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">
+                    <i data-lucide="star" class="ico-18"></i> How do I leave feedback?
+                    <span class="faq-sign"><i data-lucide="plus" class="ico-16"></i></span>
+                </button>
+                <div class="faq-a"><div class="inner">
+                    Once a consultation is completed you can rate it and leave a comment from the portal.
+                    Reviews help other patients choose a doctor — and only your first name and the first
+                    letter of your surname are ever shown on this page.
+                </div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================== CTA band ===== -->
+<section class="section" style="padding-bottom:20px">
+    <div class="site-wrap">
+        <div class="cta-band reveal-s" style="background-image:url('/img/photos/lobby.jpg')">
+            <div class="veil"></div>
+            <div class="inner">
+                <div>
+                    <h2>Ready when you are.</h2>
+                    <p>Sign in to book with any of our doctors, or call the clinic and we will arrange it for you.</p>
+                </div>
+                <div class="spacer"></div>
+                <div class="flex" style="gap:12px; flex-wrap:wrap">
+                    <a class="btn btn-primary" href="/login">
+                        <i data-lucide="calendar-plus" class="ico-16"></i> Book an appointment
+                    </a>
+                    <a class="btn btn-ghost" href="tel:+94452223344">
+                        <i data-lucide="phone" class="ico-16"></i> 045 222 3344
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================== footer ==== -->
+<footer class="site-footer" id="contact">
+    <div class="site-wrap">
+        <div class="footer-grid">
+            <div>
+                <h4>MedCare Clinic</h4>
+                <ul>
+                    <li><i data-lucide="map-pin" class="ico-16"></i> 112, Galle Road, Ratnapura 70000</li>
+                    <li><a href="tel:+94452223344"><i data-lucide="phone" class="ico-16"></i> 045 222 3344</a></li>
+                    <li><a href="mailto:hello@medcare.lk"><i data-lucide="mail" class="ico-16"></i> hello@medcare.lk</a></li>
+                    <li><i data-lucide="siren" class="ico-16"></i> Emergency line open 24 hours</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Clinics</h4>
+                <ul id="footerSpecialties"></ul>
+            </div>
+            <div>
+                <h4>Opening hours</h4>
+                <ul>
+                    <li>Monday – Friday · 8.00am – 6.00pm</li>
+                    <li>Saturday · 8.00am – 1.00pm</li>
+                    <li>Sunday · Closed</li>
+                    <li>Public holidays · 8.00am – 12.00pm</li>
+                </ul>
+            </div>
+            <div>
+                <h4>For patients</h4>
+                <ul>
+                    <li><a href="/login">Sign in to the patient portal</a></li>
+                    <li><a href="#doctors">Find a doctor</a></li>
+                    <li><a href="#how">How booking works</a></li>
+                    <li><a href="#faq">Frequently asked questions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© <span id="year"></span> MedCare Clinic · Medical Appointment Scheduling System</span>
+            <span>Registered private clinic · SLMC 10455</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ================================================== mobile helpers ===== -->
+<button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up" class="ico-20"></i></button>
+
+<div class="mobile-bar">
+    <a class="btn btn-primary" href="/login"><i data-lucide="calendar-plus" class="ico-16"></i> Book appointment</a>
+    <a class="btn" href="tel:+94452223344"><i data-lucide="phone" class="ico-16"></i> Call</a>
+</div>
+
+<div class="nav-drawer" id="navDrawer">
+    <div class="nd-veil" data-close></div>
+    <div class="nd-panel">
+        <div class="flex" style="align-items:center; margin-bottom:14px">
+            <img src="/img/logo.png" alt="MedCare" style="height:38px">
+            <div class="spacer"></div>
+            <button class="btn btn-sm" data-close aria-label="Close"><i data-lucide="x" class="ico-18"></i></button>
+        </div>
+        <a href="#doctors" data-close><i data-lucide="stethoscope" class="ico-18"></i> Find a doctor</a>
+        <a href="#specialties" data-close><i data-lucide="layers" class="ico-18"></i> Specialities</a>
+        <a href="#facilities" data-close><i data-lucide="building-2" class="ico-18"></i> Facilities</a>
+        <a href="#reviews" data-close><i data-lucide="star" class="ico-18"></i> Reviews</a>
+        <a href="#faq" data-close><i data-lucide="circle-help" class="ico-18"></i> FAQ</a>
+        <a href="#contact" data-close><i data-lucide="map-pin" class="ico-18"></i> Contact</a>
+        <a class="btn btn-primary" href="/login" style="margin-top:12px; justify-content:center">
+            <i data-lucide="user-round" class="ico-16" aria-hidden="true"></i> <span class="portal-label">Patient sign in</span>
+        </a>
+    </div>
+</div>
+
+<div class="modal-root" id="modalRoot"></div>
+
+<script src="/js/vendor.js?v=2c89a70965"></script>
+<script src="/js/home.js?v=8079b9ece7"></script>
+</body>
+</html>

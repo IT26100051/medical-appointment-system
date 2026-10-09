@@ -1,0 +1,23 @@
+const fs = require('fs');
+const { JSDOM } = require('jsdom');
+const FRONT = '/home/user/medical-appointment-system/frontend';
+const dom = new JSDOM('<body></body>', { url: 'http://localhost:8080/', runScripts: 'outside-only' });
+const w = dom.window;
+w.matchMedia = q => ({ matches: false, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {} });
+w.requestAnimationFrame = cb => setTimeout(() => cb(0), 16);
+w.Element.prototype.scrollIntoView = function () {};
+w.eval(fs.readFileSync(FRONT + '/js/vendor.js', 'utf8'));
+const M = w.MedCare || {};
+console.log('MedCare keys:', Object.keys(M).join(', '));
+const icons = M.icons || {};
+console.log('icon count:', Object.keys(icons).length);
+const html = fs.readFileSync(FRONT + '/login.html', 'utf8') + fs.readFileSync(FRONT + '/index.html', 'utf8') + fs.readFileSync(FRONT + '/app.html', 'utf8');
+const names = new Set([...html.matchAll(/data-lucide="([a-z0-9-]+)"/g)].map(m => m[1]));
+const pascal = n => n.split('-').map(p => p[0].toUpperCase() + p.slice(1)).join('');
+const missing = [...names].filter(n => !icons[pascal(n)]);
+console.log('placeholders:', names.size, '| missing from bundle:', missing.join(', ') || 'none');
+// also the names used from javascript
+const js = fs.readFileSync(FRONT + '/js/app.js', 'utf8') + fs.readFileSync(FRONT + '/js/home.js', 'utf8');
+const jsNames = new Set([...js.matchAll(/data-lucide="([a-z0-9-]+)"/g)].map(m => m[1]));
+console.log('js placeholders:', jsNames.size, '| missing:', [...jsNames].filter(n => !icons[pascal(n)]).join(', ') || 'none');
+dom.window.close();
