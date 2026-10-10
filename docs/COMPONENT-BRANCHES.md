@@ -119,16 +119,15 @@ The foundation contains Maven configuration, the application entry point, common
 
 Database files, generated clinic records, build outputs, IDE state and dependency folders are excluded. The existing compiled frontend bundle contains all six components, so it is deliberately excluded from publication while two components have unconfirmed owners. Rebuild it after integration.
 
-## Merge later
+## Integration status and remaining merges
 
-Once both remaining owners are confirmed, commit their staged files with their verified author identities and push those two branches. On an integration checkout, start from main and merge the six branches:
+On 10 October 2026, patient-management, doctor-management, appointment-management and access-control-staff-management were merged into main using separate merge commits. Their original author commits and branch names were preserved. This makes the original component authors eligible for GitHub's default-branch Contributors graph; statistics may take time to refresh.
+
+The two remaining branches still contain only locally staged component source, with no author-assigned component commit or remote branch. Once both remaining owners are confirmed, update their worktrees from main, commit their staged files with their verified author identities and push those two branches. On an integration checkout, start from the current main and merge the remaining branches:
 
 ```sh
 git switch main
-git merge --no-ff patient-management
-git merge --no-ff doctor-management
-git merge --no-ff appointment-management
-git merge --no-ff access-control-staff-management
+git pull --ff-only
 git merge --no-ff doctor-availability-schedule-management
 git merge --no-ff feedback-notification-management
 npm --prefix frontend ci
@@ -137,4 +136,4 @@ mvn -f backend/pom.xml test
 mvn -f backend/pom.xml package
 ```
 
-The frontend bundle is ignored because it is generated; Maven packages the locally rebuilt bundle into the runnable jar. Do not expect any individual component branch or the foundation to compile or run before all dependencies are merged. No components have been merged into main as part of the initial publication.
+The frontend bundle is ignored because it is generated; Maven packages the locally rebuilt bundle into the runnable jar. The current main and individual component branches still require the two remaining components before the full application can compile or run.
