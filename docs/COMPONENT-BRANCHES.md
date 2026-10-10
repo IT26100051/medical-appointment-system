@@ -2,7 +2,7 @@
 
 All component branches start from the same shared foundation commit on main. Each contribution owns a disjoint set of source files, so the initial merges do not edit the same files. Existing cross-component APIs are preserved.
 
-The four confirmed component commits use the requested GitHub usernames and their verified GitHub noreply addresses. IT26100051 is the committer and pushing account. These commits import the supplied existing code; they do not represent a reconstructed development history. The two unconfirmed components remain local, with staged source and no commit until ownership is confirmed.
+The five confirmed component commits use the requested GitHub usernames and their verified GitHub noreply addresses. IT26100051 is the committer and pushing account. These commits import the supplied existing code; they do not represent a reconstructed development history. Doctor Availability and Schedule Management remains local, with staged source and no commit until ownership is confirmed.
 
 ## patient-management
 
@@ -100,7 +100,7 @@ Owner: not yet confirmed.
 
 ## feedback-notification-management
 
-Owner: not yet confirmed.
+Owner: IT26100002.
 
 - `backend/src/main/java/com/medcare/feedback/Feedback.java`
 - `backend/src/main/java/com/medcare/feedback/FeedbackController.java`
@@ -117,23 +117,22 @@ Owner: not yet confirmed.
 
 The foundation contains Maven configuration, the application entry point, common domain/forms/exceptions, shared controllers and DTOs, document export, demo seeding, photo utilities, the portal shell, public website, styles, fonts, generic artwork, frontend dependencies and integration entry point, existing UI-check tools, and documentation. Some shared integration files reference component types which become available after merging all six contributions.
 
-Database files, generated clinic records, build outputs, IDE state and dependency folders are excluded. The existing compiled frontend bundle contains all six components, so it is deliberately excluded from publication while two components have unconfirmed owners. Rebuild it after integration.
+Database files, generated clinic records, build outputs, IDE state and dependency folders are excluded. The existing compiled frontend bundle contains all six components, so it is deliberately excluded from publication while Doctor Availability and Schedule Management has an unconfirmed owner. Rebuild it after integration.
 
 ## Integration status and remaining merges
 
-On 10 October 2026, patient-management, doctor-management, appointment-management and access-control-staff-management were merged into main using separate merge commits. Their original author commits and branch names were preserved. This makes the original component authors eligible for GitHub's default-branch Contributors graph; statistics may take time to refresh.
+On 10 October 2026, patient-management, doctor-management, appointment-management, access-control-staff-management and feedback-notification-management were merged into main using separate merge commits. Their original author commits and branch names were preserved. This makes the original component authors eligible for GitHub's default-branch Contributors graph; statistics may take time to refresh.
 
-The two remaining branches still contain only locally staged component source, with no author-assigned component commit or remote branch. Once both remaining owners are confirmed, update their worktrees from main, commit their staged files with their verified author identities and push those two branches. On an integration checkout, start from the current main and merge the remaining branches:
+Doctor Availability and Schedule Management still contains only locally staged component source, with no author-assigned component commit or remote branch. Once its owner is confirmed, commit its staged files with the verified author identity and push that branch. On an integration checkout, start from the current main and merge the remaining branch:
 
 ```sh
 git switch main
 git pull --ff-only
 git merge --no-ff doctor-availability-schedule-management
-git merge --no-ff feedback-notification-management
 npm --prefix frontend ci
 npm --prefix frontend run build
 mvn -f backend/pom.xml test
 mvn -f backend/pom.xml package
 ```
 
-The frontend bundle is ignored because it is generated; Maven packages the locally rebuilt bundle into the runnable jar. The current main and individual component branches still require the two remaining components before the full application can compile or run.
+The frontend bundle is ignored because it is generated; Maven packages the locally rebuilt bundle into the runnable jar. The current main and individual component branches still require Doctor Availability and Schedule Management before the full application can compile or run.
