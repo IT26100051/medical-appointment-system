@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in · MedCare Appointment System</title>
+    <meta name="description" content="MedCare - Medical Appointment Scheduling System. Patient records, doctor schedules, appointment booking, feedback and notifications.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="stylesheet" href="/fonts/fonts.css">
+    <link rel="stylesheet" href="/css/styles.css?v=277bf2902f">
+</head>
+<body>
+<div class="login-page">
+
+    <!-- ------------------------------------------------ brand side ---- -->
+    <section class="login-hero">
+        <div class="hero-photo" role="img" aria-label="Reception of the MedCare clinic"></div>
+
+        <div class="hero-content">
+            <a href="/" title="Back to the clinic website">
+                <img class="login-logo" src="/img/logo.png" alt="MedCare — Medical Appointment Scheduling System">
+            </a>
+
+            <h1>Patient care, <span>organised.</span></h1>
+            <p class="lead">
+                Book and manage appointments with our doctors, and keep every record in one place.
+            </p>
+
+            <div class="hero-chips">
+                <span class="hero-chip"><i data-lucide="stethoscope" class="ico-16"></i> <strong id="chipDoctors">4</strong> specialists</span>
+                <span class="hero-chip"><i data-lucide="calendar-plus" class="ico-16"></i> Book any open time</span>
+                <span class="hero-chip"><i data-lucide="bell" class="ico-16"></i> Appointment reminders</span>
+                <span class="hero-chip"><i data-lucide="shield-check" class="ico-16"></i> Your records, kept safe</span>
+            </div>
+        </div>
+
+        <div class="hero-foot">
+            <span>© MedCare Clinic · Medical Appointment Scheduling System</span>
+        </div>
+    </section>
+
+    <!-- ------------------------------------------------ form side ---- -->
+    <section class="login-panel">
+        <div class="login-card">
+
+            <h2>Sign in</h2>
+            <div class="sub">Welcome back — please enter your account details.</div>
+
+            <form id="loginForm" autocomplete="on">
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="e.g. admin"
+                           autocomplete="username" required autofocus>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="pwd-wrap">
+                        <input type="password" id="password" name="password" placeholder="Your password"
+                               autocomplete="current-password" required>
+                        <button class="pwd-toggle" type="button" id="pwdToggle"
+                                title="Show the password" aria-label="Show the password">
+                            <i data-lucide="eye" class="ico-16"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex" style="justify-content:space-between; margin:-4px 0 14px">
+                    <label class="switch" style="font-size:12.5px">
+                        <input type="checkbox" id="remember"> <span>Remember my username</span>
+                    </label>
+                    <button type="button" class="link-btn" id="demoLink"
+                            aria-controls="demoAccounts" aria-expanded="false">Demo accounts</button>
+                </div>
+
+                <div id="loginError" class="login-error"></div>
+
+                <button class="btn btn-primary" type="submit" id="loginBtn" style="width:100%; padding:11px">
+                    Sign in
+                </button>
+            </form>
+
+            <div class="small muted mt-16" style="text-align:center">
+                New patient? Call the clinic on
+                <a href="tel:+94452223344"><strong>045 222 3344</strong></a> or ask at the reception desk
+                and we will open your record.
+            </div>
+
+            <div id="demoAccounts" class="demo-accounts hidden">
+                <div class="small muted" style="margin-bottom:8px">Click an account to fill the form:</div>
+                <div class="demo-chips">
+                    <span class="chip" data-u="admin" data-p="admin123"><i data-lucide="settings" class="ico-14"></i> Administrator</span>
+                    <span class="chip" data-u="reception" data-p="reception123"><i data-lucide="phone" class="ico-14"></i> Receptionist</span>
+                    <span class="chip" data-u="drsilva" data-p="doctor123"><i data-lucide="stethoscope" class="ico-14"></i> Doctor</span>
+                    <span class="chip" data-u="nimasha" data-p="patient123"><i data-lucide="user-round" class="ico-14"></i> Patient</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="/js/vendor.js?v=2c89a70965"></script>
+<script>
+    /* ---------------------------------------------------------- polish ---
+       The sign-in page uses the same bundled libraries as the rest of the
+       site: Lucide for the icons and Motion for a calm entrance.  Every call
+       is guarded, so the form still works without them.                  */
+    (function () {
+        const M = window.MedCare || {};
+        const calm = () => {
+            try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+            catch (error) { return false; }
+        };
+        if (typeof M.createIcons === 'function' && M.icons) {
+            try { M.createIcons({ icons: M.icons, attrs: { 'stroke-width': 1.9 } }); }
+            catch (error) { /* icons are decoration */ }
+        }
+        if (typeof M.animate === 'function' && typeof M.stagger === 'function' && !calm()) {
+            try {
+                M.animate(document.querySelectorAll('.hero-content > *'),
+                    { opacity: [0, 1], y: [18, 0] }, { duration: .7, ease: [.16, 1, .3, 1], delay: M.stagger(.08) });
+                M.animate(document.querySelectorAll('.login-card > *'),
+                    { opacity: [0, 1], y: [16, 0] }, { duration: .6, ease: [.16, 1, .3, 1], delay: M.stagger(.06) });
+            } catch (error) { /* the page is simply already visible */ }
+        }
+
+        /* show / hide the password, with the icon swapped by Lucide */
+        const toggle = document.getElementById('pwdToggle');
+        const password = document.getElementById('password');
+        if (toggle && password) {
+            toggle.addEventListener('click', () => {
+                const showing = password.type === 'text';
+                password.type = showing ? 'password' : 'text';
+                toggle.innerHTML = '<i data-lucide="' + (showing ? 'eye' : 'eye-off') + '" class="ico-16"></i>';
+                if (typeof M.createIcons === 'function' && M.icons) {
+                    try { M.createIcons({ icons: M.icons, attrs: { 'stroke-width': 1.9 } }); } catch (error) { /* skip */ }
+                }
+                toggle.title = showing ? 'Show the password' : 'Hide the password';
+                toggle.setAttribute('aria-label', toggle.title);
+                toggle.setAttribute('aria-pressed', String(!showing));
+                password.focus();
+            });
+        }
+
+        /* the number of specialists on the chip comes from the clinic itself */
+        fetch('/api/public/summary')
+            .then(response => response.json())
+            .then(summary => {
+                const chip = document.getElementById('chipDoctors');
+                if (chip && summary && summary.doctors) chip.textContent = summary.doctors;
+            })
+            .catch(() => { /* the chip keeps its default */ });
+    })();
+</script>
+<script>
+    const form = document.getElementById('loginForm');
+    const errorBox = document.getElementById('loginError');
+    const button = document.getElementById('loginBtn');
+    const usernameField = document.getElementById('username');
+    const passwordField = document.getElementById('password');
+
+    /* remember the username between visits */
+    const remembered = localStorage.getItem('medcare.username');
+    if (remembered) {
+        usernameField.value = remembered;
+        document.getElementById('remember').checked = true;
+        passwordField.focus();
+    }
+
+    /* demo accounts are hidden behind a link to keep the form clean */
+    const demoLink = document.getElementById('demoLink');
+    const demoPanel = document.getElementById('demoAccounts');
+    demoLink.addEventListener('click', () => {
+        const showing = demoPanel.classList.toggle('hidden') === false;
+        demoLink.setAttribute('aria-expanded', String(showing));
+        demoLink.textContent = showing ? 'Hide the demo accounts' : 'Demo accounts';
+    });
+
+    document.querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            usernameField.value = chip.dataset.u;
+            passwordField.value = chip.dataset.p;
+            errorBox.textContent = '';
+            document.getElementById('remember').checked = true;
+        });
+    });
+
+    [usernameField, passwordField].forEach(input =>
+        input.addEventListener('input', () => {
+            input.classList.remove('input-error');
+            errorBox.textContent = '';
+        }));
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        errorBox.textContent = '';
+        [usernameField, passwordField].forEach(i => i.classList.remove('input-error'));
+        button.disabled = true;
+        button.textContent = 'Signing in...';
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: usernameField.value.trim(),
+                    password: passwordField.value
+                })
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(data.message || 'Sign in failed');
+
+            if (document.getElementById('remember').checked) {
+                localStorage.setItem('medcare.username', usernameField.value.trim());
+            } else {
+                localStorage.removeItem('medcare.username');
+            }
+            button.innerHTML = '<i data-lucide="check" class="ico-16"></i> Welcome '
+                + (data.user ? data.user.fullName.split(' ')[0] : '');
+            window.location.href = '/app';
+        } catch (error) {
+            errorBox.innerHTML = '<i data-lucide="circle-alert" class="ico-16"></i> '
+                + String(error.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            errorBox.classList.remove('shake');
+            void errorBox.offsetWidth;            // restart the animation
+            errorBox.classList.add('shake');
+            const libs = window.MedCare;
+            if (libs && typeof libs.createIcons === 'function' && libs.icons) {
+                try { libs.createIcons({ icons: libs.icons, attrs: { 'stroke-width': 1.9 } }); } catch (error) { /* skip */ }
+            }
+            usernameField.classList.add('input-error');
+            passwordField.classList.add('input-error');
+            passwordField.select();
+            button.disabled = false;
+            button.textContent = 'Sign in';
+        }
+    });
+</script>
+</body>
+</html>
