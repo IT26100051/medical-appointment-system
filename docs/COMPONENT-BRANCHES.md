@@ -2,7 +2,7 @@
 
 All component branches start from the same shared foundation commit on main. Each contribution owns a disjoint set of source files, so the initial merges do not edit the same files. Existing cross-component APIs are preserved.
 
-The five confirmed component commits use the requested GitHub usernames and their verified GitHub noreply addresses. IT26100051 is the committer and pushing account. These commits import the supplied existing code; they do not represent a reconstructed development history. Doctor Availability and Schedule Management remains local, with staged source and no commit until ownership is confirmed.
+All six component commits use the requested GitHub usernames and their verified GitHub noreply addresses. IT26100051 is the committer and pushing account. These commits import the supplied existing code; they do not represent a reconstructed development history. All components have been pushed and merged into main.
 
 ## patient-management
 
@@ -89,7 +89,7 @@ Owner: IT26100467.
 
 ## doctor-availability-schedule-management
 
-Owner: not yet confirmed.
+Owner: it26100420.
 
 - `backend/src/main/java/com/medcare/availability/AvailabilityForm.java`
 - `backend/src/main/java/com/medcare/availability/DoctorAvailability.java`
@@ -117,22 +117,21 @@ Owner: IT26100002.
 
 The foundation contains Maven configuration, the application entry point, common domain/forms/exceptions, shared controllers and DTOs, document export, demo seeding, photo utilities, the portal shell, public website, styles, fonts, generic artwork, frontend dependencies and integration entry point, existing UI-check tools, and documentation. Some shared integration files reference component types which become available after merging all six contributions.
 
-Database files, generated clinic records, build outputs, IDE state and dependency folders are excluded. The existing compiled frontend bundle contains all six components, so it is deliberately excluded from publication while Doctor Availability and Schedule Management has an unconfirmed owner. Rebuild it after integration.
+Database files, generated clinic records, build outputs, IDE state and dependency folders are excluded. With all six owners confirmed, the complete frontend bundle is included on main for offline operation. The shared Java report-export package is included as application source; only generated runtime documents are ignored.
 
-## Integration status and remaining merges
+## Completed integration
 
 On 10 October 2026, patient-management, doctor-management, appointment-management, access-control-staff-management and feedback-notification-management were merged into main using separate merge commits. Their original author commits and branch names were preserved. This makes the original component authors eligible for GitHub's default-branch Contributors graph; statistics may take time to refresh.
 
-Doctor Availability and Schedule Management still contains only locally staged component source, with no author-assigned component commit or remote branch. Once its owner is confirmed, commit its staged files with the verified author identity and push that branch. On an integration checkout, start from the current main and merge the remaining branch:
+On 13 October 2026, doctor-availability-schedule-management was merged into main, preserving the original it26100420 author commit. All six branches remain available. To run the integrated project, use main. The committed frontend bundle supports offline use; the npm steps below are needed only to rebuild it after frontend changes:
 
 ```sh
 git switch main
 git pull --ff-only
-git merge --no-ff doctor-availability-schedule-management
 npm --prefix frontend ci
 npm --prefix frontend run build
 mvn -f backend/pom.xml test
 mvn -f backend/pom.xml package
 ```
 
-The frontend bundle is ignored because it is generated; Maven packages the locally rebuilt bundle into the runnable jar. The current main and individual component branches still require Doctor Availability and Schedule Management before the full application can compile or run.
+The frontend bundle is committed for offline operation, and Maven packages it into the runnable jar. All six component implementations and shared application source are now available on main.

@@ -2,7 +2,8 @@
 **/target/
 **/node_modules/
 **/data/
-**/documents/
+/documents/
+/backend/documents/
 .idea/
 .vscode/
 *.iml
@@ -12,6 +13,3 @@
 !.env.example
 .DS_Store
 Thumbs.db
-# Rebuild the frontend bundle after integrating all components
-frontend/js/vendor.js
-frontend/js/vendor.css
